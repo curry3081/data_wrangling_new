@@ -1,0 +1,89 @@
+---
+title: "data_wrangling"
+author: "Tianyi Ma"
+date: "9/19/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+```
+
+
+```{r}
+litters_data = read_csv(file = "./data/FAS_litters.csv")
+names(litters_data)
+litters_data = janitor::clean_names(litters_data)
+names(litters_data)
+litters_data
+tail(litters_data, 5)
+skimr::skim(litters_data)
+
+```
+
+## Arguments to read_*
+```{r cars}
+litters_data = read_csv(file = "./data/FAS_litters.csv",
+  skip = 10, col_names = FALSE)
+head(litters_data)
+
+```
+
+## Parsing columns
+
+```{r pressure, echo=FALSE}
+litters_data = read_csv(file = "./data/FAS_litters.csv",
+  col_types = cols(
+    Group = col_character(),
+    `Litter Number` = col_character(),
+    `GD0 weight` = col_double(),
+    `GD18 weight` = col_double(),
+    `GD of Birth` = col_integer(),
+    `Pups born alive` = col_integer(),
+    `Pups dead @ birth` = col_integer(),
+    `Pups survive` = col_integer()
+  )
+)
+tail(litters_data)
+```
+
+```{r}
+litters_data = read_csv(file = "./data/FAS_litters.csv",
+  col_types = "ccddiiii"
+)
+litters_data
+```
+```{r}
+pups_data = read_csv(file = "./data/FAS_pups.csv", col_types = "ccddiiii")
+skimr::skim(pups_data)
+```
+## Other file formats
+```{r}
+library(readxl)
+mlb11_data = read_excel("data/mlb11.xlsx", n_max = 20)
+head(mlb11_data, 5)
+```
+```{r}
+library(haven)
+pulse_data = read_sas("./data/public_pulse_data.sas7bdat")
+head(pulse_data, 5)
+```
+
+## Learning work
+```{r}
+pups_base = read.csv("./data/FAS_pups.csv")
+pups_readr = read_csv("./data/FAS_pups.csv")
+
+View(pups_base)
+View(pups_readr)
+
+pups_base
+pups_readr
+
+pups_base$S
+pups_readr$S
+```
+```{r}
+write()
+```
+
